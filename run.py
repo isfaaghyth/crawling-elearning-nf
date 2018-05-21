@@ -23,27 +23,31 @@ def get():
 
     content = req.get(taskurl)
     content = BeautifulSoup(content.text, "html.parser")
-    course_name = content.find_all('div', class_='box coursebox')
+    courses = content.find_all('div', class_='box coursebox')
 
     courses_item = []
 
-    for i in course_name:
-        name = i.find(class_='course_title').find(class_='title').find('a').text
+    for i in courses:
+        course_name = i.find(class_='course_title').find(class_='title').find('a').text
+        course_link = i.find(class_='course_title').find(class_='title').find('a')['href']
         assignment = i.find_all(class_='assign overview')
-        courses = []
+        tasks = []
         if len(assignment) != 0:
             for j in assignment:
                 assignment_name = j.find(class_='name').find('a').text
                 assignment_due = j.find(class_='info').text
+                assignment_link = j.find(class_='name').find('a')['href']
                 res_assignment = {
                     'title': assignment_name,
-                    'due': assignment_due
+                    'due': assignment_due,
+                    'link': assignment_link
                 }
-                courses.append(res_assignment)
+                tasks.append(res_assignment)
 
         temp_item = {
-            'course_name': name,
-            'tasks': courses
+            'course_name': course_name,
+            'course_link': course_link,
+            'tasks': tasks
         }
         courses_item.append(temp_item)
 

@@ -36,18 +36,18 @@ def get():
                 assignment_name = j.find(class_='name').find('a').text
                 assignment_due = j.find(class_='info').text
                 res_assignment = {
-                    'assignment_name': assignment_name,
-                    'assignment_due': assignment_due
+                    'title': assignment_name,
+                    'due': assignment_due
                 }
                 courses.append(res_assignment)
 
         temp_item = {
-            'name': name,
-            'assignment': courses
+            'course_name': name,
+            'tasks': courses
         }
         courses_item.append(temp_item)
 
-    return jsonify({ 'data': courses_item})
+    return jsonify(courses_item)
 
 if __name__ == '__main__':
      app.run(port='5002')

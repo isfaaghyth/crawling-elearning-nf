@@ -10,6 +10,16 @@ url = 'https://elen.nurulfikri.ac.id'
 loginurl = url + '/login/index.php'
 taskurl = url + '/my/index.php?mynumber=-2'
 
+@app.route('/', methods=['GET'])
+def index():
+    index = []
+    view = {
+        'version': 'v1',
+        'author': '@isfaaghyth'
+    }
+    index.append(view)
+    return jsonify(index)
+
 @app.route('/cek', methods=['POST'])
 def get():
     payload = {

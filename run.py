@@ -61,7 +61,14 @@ def get():
         }
         courses_item.append(temp_item)
 
-    return jsonify(courses_item)
+    student_name = content.find('span', class_='usertext').text
+    student_avatar = content.find(class_='userpicture')['src']
+    res = {
+        'student_name': student_name,
+        'student_avatar': student_avatar,
+        'data': courses_item
+    }
+    return jsonify(res)
 
 if __name__ == '__main__':
      app.run(port='5002')
